@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Roblox - Sign Up</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="roblox-logo.png" alt="Roblox" class="roblox-logo-img"/>
+  </a>
+  <div class="nav-links">
+    <a href="#">Charts</a>
+    <a href="#">Marketplace</a>
+    <a href="#">Create</a>
+    <a href="#">Robux</a>
+  </div>
+  <div class="nav-search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" placeholder="Search"/>
+  </div>
+  <a href="index.html" class="nav-signup">Log In</a>
+</nav>
+
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
+
+<div class="page-center">
+  <div class="auth-card">
+    <h1>Sign Up</h1>
+
+    <form id="signupForm">
+      <label class="field-label">Birthday</label>
+      <div class="birthday-row">
+        <select id="bMonth"><option value="">Month</option>
+          <option>January</option><option>February</option><option>March</option>
+          <option>April</option><option>May</option><option>June</option>
+          <option>July</option><option>August</option><option>September</option>
+          <option>October</option><option>November</option><option>December</option>
+        </select>
+        <select id="bDay"><option value="">Day</option></select>
+        <select id="bYear"><option value="">Year</option></select>
+      </div>
+
+      <label class="field-label">Username</label>
+      <input type="text" id="suUsername" placeholder="Username" autocomplete="username"/>
+
+      <label class="field-label">Password</label>
+      <div class="pass-wrap">
+        <input type="password" id="suPassword" placeholder="Password" autocomplete="new-password"/>
+        <button type="button" id="suEyeBtn" class="eye-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+
+      <label class="field-label">Gender <span style="color:#666;font-weight:400">(optional)</span></label>
+      <div class="gender-row">
+        <button type="button" class="gender-btn" data-g="Male">Male</button>
+        <button type="button" class="gender-btn" data-g="Female">Female</button>
+      </div>
+
+      <p class="err" id="suErrMsg"></p>
+      <button type="submit" class="login-btn">Sign Up</button>
+    </form>
+
+    <p class="tos-text">By clicking Sign Up, you are agreeing to the <a href="#">Terms of Use</a>. Please see our <a href="#">Privacy Policy</a>.</p>
+    <p class="bottom-link">Already have an account? <a href="index.html">Log In</a></p>
+  </div>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>
